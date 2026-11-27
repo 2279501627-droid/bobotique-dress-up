@@ -21,6 +21,7 @@
 <button id="zoom">＋ ZOOM</button>
 <button id="reset">RESET</button>
 <button id="spin" aria-pressed="false">AUTO</button>
+<button id="photo" disabled>拍照</button>
 </nav>
 <footer>
 <small>01 / FOUNDER · ARCHIVE WARDROBE</small>
@@ -34,6 +35,29 @@
 <a href="https://bobotique.com" target="_blank">VISIT STORE ↗</a>
 </footer>
 </main>
+<dialog id="photo-dialog" aria-labelledby="photo-title">
+<h2 id="photo-title">造型照片</h2>
+<p id="photo-message" role="status">正在生成照片…</p>
+<img id="photo-preview" alt="当前角度的 BOBOTIQUE 角色照片" hidden>
+<div class="photo-actions">
+<a id="photo-download" hidden>下载 PNG</a>
+<button id="photo-share" hidden>分享 / 保存到照片</button>
+<button id="photo-close" autofocus>返回换装</button>
+</div>
+<p>iPhone 可通过分享菜单保存，也可长按照片保存。照片仅在本机生成。</p>
+</dialog>
+<style>
+nav{flex-wrap:wrap}button:disabled{opacity:.45;cursor:default}
+#photo{background:linear-gradient(#d9cce9,#645370)}
+#photo-dialog{width:min(92vw,480px);max-height:90dvh;overflow:auto;padding:20px;color:#eee;background:#21192c;border:1px solid #aaa;box-shadow:0 16px 70px #0009}
+#photo-dialog::backdrop{background:#08060dcc}
+#photo-dialog h2{font:italic 24px Georgia;margin:0 0 12px}
+#photo-dialog p{font-size:14px;line-height:1.5}
+#photo-preview{display:block;max-width:100%;max-height:58dvh;object-fit:contain;margin:12px auto;background:#100d17}
+#photo-preview[hidden],.photo-actions [hidden]{display:none}
+.photo-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.photo-actions button,.photo-actions a{min-height:44px;font-size:14px;display:inline-flex;align-items:center}
+</style>
 <script type="module" src="./src/app.js">
 </script>
 </body>

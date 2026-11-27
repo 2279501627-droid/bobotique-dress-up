@@ -1,4 +1,5 @@
 import * as T from 'three';
+import { setupPhoto } from './photo.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
@@ -33,6 +34,7 @@ controls.maxDistance = 6;
 controls.minPolarAngle = Math.PI * 0.15;
 controls.maxPolarAngle = Math.PI * 0.55;
 controls.autoRotateSpeed = 1;
+const photo = setupPhoto({ renderer, scene, camera, controls });
 
 // Broad emitters and a prefiltered neutral studio environment avoid hard
 // point highlights. No shadow maps or full-screen postprocessing on mobile.
@@ -148,6 +150,7 @@ new GLTFLoader().load(new URL('../assets/founder.glb', import.meta.url).href, gl
   const center = bounds.getCenter(new T.Vector3());
   model.position.set(-center.x, 0.07 - bounds.min.y, -center.z);
   scene.add(model);
+  photo.setReady(true);
   status.textContent = 'PLAYER 01 / FOUNDER';
 }, undefined, error => {
   status.textContent = 'Character could not load. Reload to try again.';
@@ -196,7 +199,7 @@ let lastTime;
 function render(time) {
   const delta = lastTime === undefined ? 0 : Math.min((time - lastTime) / 1000, 0.05);
   lastTime = time;
-  controls.update(delta);
+  if (!photo.open) controls.update(delta);
   renderer.render(scene, camera);
 }
 function resume() {
@@ -206,6 +209,7 @@ function resume() {
 document.addEventListener('visibilitychange', resume);
 renderer.domElement.addEventListener('webglcontextlost', event => {
   event.preventDefault();
+  photo.setReady(false);
   renderer.setAnimationLoop(null);
   status.textContent = '3D paused. Restoring graphics...';
 });
