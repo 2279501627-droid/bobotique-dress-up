@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BOBOTIQUE / Virtual Closet</title>
-<style>*{box-sizing:border-box}body{margin:0;background:#100d17;color:#eee;font:13px Arial}main{max-width:560px;margin:auto;height:100dvh;display:flex;flex-direction:column;border:1px solid #777}header{padding:14px;background:linear-gradient(#ddd,#777,#222);color:white;display:flex;justify-content:space-between;align-items:center}header b{font:bold italic 29px Georgia;text-shadow:2px 2px #111}small{letter-spacing:2px}#stage{flex:1;min-height:250px;position:relative;overflow:hidden}canvas{display:block;touch-action:none}#status{position:absolute;top:12px;left:12px;z-index:2;background:#1119;padding:8px}nav,footer{padding:10px;background:#201c29;border-top:1px solid #777}button,a{background:linear-gradient(#b9b9bd,#55545d);color:white;border:1px solid #ccc;padding:10px;font: bold 12px Arial;cursor:pointer;text-decoration:none}nav{display:flex;gap:8px;justify-content:center}.items{display:flex;gap:6px}.items button{flex:1;text-align:left;min-height:58px}.items button:disabled{opacity:.45}p{margin:8px 0;color:#bbb}footer{font-size:11px}button:focus-visible,a:focus-visible{outline:2px solid #ded3ff;outline-offset:3px}button[aria-pressed="true"]{background:linear-gradient(#8a7a9c,#3a2c48)}nav button{min-height:44px}main{min-height:600px}footer{padding-bottom:max(10px,env(safe-area-inset-bottom))}</style>
+
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<link rel="stylesheet" href="./src/ui/styles.css">
 </head>
 <body>
 <main>
@@ -24,15 +25,14 @@
 <button id="photo" aria-label="Take photo" title="Take photo" disabled><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 5l1.5-2h5L16 5h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><circle cx="12" cy="13" r="4"/><path d="M18 8h.01"/></svg></button>
 </nav>
 <footer>
-<small>01 / FOUNDER · ARCHIVE WARDROBE</small>
-<p>Current outfit · original 3D scan</p>
-<div class="items">
-<button disabled>HERVÉ LÉGER<br>COMING SOON</button>
-<button disabled>DOLCE & GABBANA<br>COMING SOON</button>
-<button disabled>MOSCHINO<br>COMING SOON</button>
-</div>
+<small id="collection-title"></small>
+<p id="outfit-description"></p>
+<div id="selectors"></div>
+<div class="items" id="inventory"></div>
+<div id="equipped"></div>
+<a id="product-link" target="_blank" rel="noopener noreferrer" hidden>VIEW PRODUCT</a>
 <p>Drag to orbit · pinch to zoom · outfit assets pending</p>
-<a href="https://bobotique.com" target="_blank">VISIT STORE ↗</a>
+<a id="store-link" target="_blank" rel="noopener noreferrer">VISIT STORE ↗</a>
 </footer>
 </main>
 <dialog id="photo-dialog" aria-labelledby="photo-title">
@@ -46,18 +46,7 @@
 </div>
 <p>On iPhone, save through the share menu or touch and hold the photo. Photos are created on your device only.</p>
 </dialog>
-<style>
-nav{flex-wrap:wrap}button:disabled{opacity:.45;cursor:default}
-#photo{background:linear-gradient(#d9cce9,#645370);min-width:44px;display:inline-flex;align-items:center;justify-content:center}
-#photo-dialog{width:min(92vw,480px);max-height:90dvh;overflow:auto;padding:20px;color:#eee;background:#21192c;border:1px solid #aaa;box-shadow:0 16px 70px #0009}
-#photo-dialog::backdrop{background:#08060dcc}
-#photo-dialog h2{font:italic 24px Georgia;margin:0 0 12px}
-#photo-dialog p{font-size:14px;line-height:1.5}
-#photo-preview{display:block;max-width:100%;max-height:58dvh;object-fit:contain;margin:12px auto;background:#100d17}
-#photo-preview[hidden],.photo-actions [hidden]{display:none}
-.photo-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.photo-actions button,.photo-actions a{min-height:44px;font-size:14px;display:inline-flex;align-items:center}
-</style>
+
 <script type="module" src="./src/app.js">
 </script>
 </body>

@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+const events=[];
+const elements=new Map();
+function el(id){if(!elements.has(id))elements.set(id,{hidden:true,disabled:true,open:false,addEventListener(type,fn){this[type]=fn},removeAttribute(k){delete this[k]},focus(){},showModal(){this.open=true},close(){this.open=false;this.closeEvent?.()}});return elements.get(id)}
+const dialog=el('#photo-dialog');dialog.addEventListener=(type,fn)=>{if(type==='close')dialog.closeEvent=fn};
+let callback;
+globalThis.document={querySelector:el,createElement:()=>({getContext:()=>({drawImage(){events.push('copy')}}),toBlob(fn){callback=fn}})};
+Object.defineProperty(globalThis,'navigator',{value:{canShare:()=>true,share:async()=>{events.push('share')}},configurable:true});
+const source=await readFile('src/interactions/photo.js','utf8');
+const {setupPhoto}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+const controls={autoRotate:true,enabled:true};
+const photo=setupPhoto({renderer:{domElement:{width:390,height:600},render(){events.push('render')}},scene:{},camera:{},controls});
+el('#photo').onclick();assert.equal(dialog.open,false);
+photo.setReady(true);el('#photo').onclick();assert.deepEqual(events,['render','copy']);assert.equal(controls.autoRotate,false);assert.equal(photo.open,true);
+callback(new Blob(['PNG'],{type:'image/png'}));assert.equal(el('#photo-preview').hidden,false);assert.match(el('#photo-download').download,/^BOBOTIQUE-.*\.png$/);assert.equal(el('#photo-share').hidden,false);
+await el('#photo-share').onclick();assert.equal(events.at(-1),'share');
+dialog.close();assert.equal(controls.autoRotate,true);assert.equal(controls.enabled,true);assert.equal(el('#photo-preview').src,undefined);
+el('#photo').onclick();dialog.close();callback(new Blob(['late']));assert.equal(el('#photo-preview').src,undefined);
+el('#photo').onclick();callback(null);assert.match(el('#photo-message').textContent,/Could not create/);dialog.close();photo.setReady(false);assert.equal(el('#photo').disabled,true);
+console.log('PASS: load guard, render-before-copy, PNG preview, share, close cleanup, auto-rotation restore, late callback cancellation, null-blob failure, context-loss guard');

@@ -3,6 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node --check src/app.js && node scripts/build.mjs"
+    "check": "node scripts/check.mjs",
+    "test": "node --test",
+    "build": "npm run check && node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "three": "0.170.0"
   }
 }
