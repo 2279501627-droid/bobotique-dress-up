@@ -21,7 +21,7 @@
 <button id="zoom">＋ ZOOM</button>
 <button id="reset">RESET</button>
 <button id="spin" aria-pressed="false">AUTO</button>
-<button id="photo" disabled>拍照</button>
+<button id="photo" aria-label="拍照" title="拍照" disabled><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 5l1.5-2h5L16 5h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><circle cx="12" cy="13" r="4"/><path d="M18 8h.01"/></svg></button>
 </nav>
 <footer>
 <small>01 / FOUNDER · ARCHIVE WARDROBE</small>
@@ -48,7 +48,7 @@
 </dialog>
 <style>
 nav{flex-wrap:wrap}button:disabled{opacity:.45;cursor:default}
-#photo{background:linear-gradient(#d9cce9,#645370)}
+#photo{background:linear-gradient(#d9cce9,#645370);min-width:44px;display:inline-flex;align-items:center;justify-content:center}
 #photo-dialog{width:min(92vw,480px);max-height:90dvh;overflow:auto;padding:20px;color:#eee;background:#21192c;border:1px solid #aaa;box-shadow:0 16px 70px #0009}
 #photo-dialog::backdrop{background:#08060dcc}
 #photo-dialog h2{font:italic 24px Georgia;margin:0 0 12px}
