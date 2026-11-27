@@ -34,7 +34,7 @@ export function setupPhoto({ renderer, scene, camera, controls }) {
     controls.autoRotate = false;
     controls.enabled = false;
     release();
-    message.textContent = '正在生成照片…';
+    message.textContent = 'Creating your photo...';
     dialog.showModal();
     try {
       renderer.render(scene, camera);
@@ -46,7 +46,7 @@ export function setupPhoto({ renderer, scene, camera, controls }) {
         canvas.width = canvas.height = 1;
         if (capture !== sequence || !dialog.open) return;
         if (!blob) {
-          message.textContent = '照片生成失败，请返回重试。';
+          message.textContent = 'Could not create your photo. Go back and try again.';
           return;
         }
         const name = `BOBOTIQUE-${new Date().toISOString().replace(/[:.]/g, '-')}.png`;
@@ -58,10 +58,10 @@ export function setupPhoto({ renderer, scene, camera, controls }) {
         download.download = name;
         download.hidden = false;
         share.hidden = !(navigator.share && navigator.canShare?.({ files: [file] }));
-        message.textContent = '照片已生成，当前角度和缩放已保留。';
+        message.textContent = 'Your photo is ready, with your current angle and zoom.';
       }, 'image/png');
     } catch (error) {
-      message.textContent = '照片生成失败，请返回重试。';
+      message.textContent = 'Could not create your photo. Go back and try again.';
       console.error('Photo capture failed', error);
     }
   };
@@ -72,7 +72,7 @@ export function setupPhoto({ renderer, scene, camera, controls }) {
       // A separate tap keeps the user activation required by iPhone Safari.
       await navigator.share({ files: [file], title: 'BOBOTIQUE' });
     } catch (error) {
-      if (error.name !== 'AbortError') message.textContent = '分享暂不可用，请下载 PNG 或长按照片保存。';
+      if (error.name !== 'AbortError') message.textContent = '分享暂不可用，请DOWNLOAD PNG 或长按照片保存。';
     } finally {
       share.disabled = false;
     }

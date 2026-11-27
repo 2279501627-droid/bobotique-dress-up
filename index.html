@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -21,7 +21,7 @@
 <button id="zoom">＋ ZOOM</button>
 <button id="reset">RESET</button>
 <button id="spin" aria-pressed="false">AUTO</button>
-<button id="photo" aria-label="拍照" title="拍照" disabled><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 5l1.5-2h5L16 5h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><circle cx="12" cy="13" r="4"/><path d="M18 8h.01"/></svg></button>
+<button id="photo" aria-label="Take photo" title="Take photo" disabled><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 5l1.5-2h5L16 5h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><circle cx="12" cy="13" r="4"/><path d="M18 8h.01"/></svg></button>
 </nav>
 <footer>
 <small>01 / FOUNDER · ARCHIVE WARDROBE</small>
@@ -36,15 +36,15 @@
 </footer>
 </main>
 <dialog id="photo-dialog" aria-labelledby="photo-title">
-<h2 id="photo-title">造型照片</h2>
-<p id="photo-message" role="status">正在生成照片…</p>
-<img id="photo-preview" alt="当前角度的 BOBOTIQUE 角色照片" hidden>
+<h2 id="photo-title">YOUR LOOK</h2>
+<p id="photo-message" role="status">Creating your photo...</p>
+<img id="photo-preview" alt="Your BOBOTIQUE avatar from the current camera angle" hidden>
 <div class="photo-actions">
-<a id="photo-download" hidden>下载 PNG</a>
-<button id="photo-share" hidden>分享 / 保存到照片</button>
-<button id="photo-close" autofocus>返回换装</button>
+<a id="photo-download" hidden>DOWNLOAD PNG</a>
+<button id="photo-share" hidden>SHARE / SAVE PHOTO</button>
+<button id="photo-close" autofocus>BACK TO CLOSET</button>
 </div>
-<p>iPhone 可通过分享菜单保存，也可长按照片保存。照片仅在本机生成。</p>
+<p>On iPhone, save through the share menu or touch and hold the photo. Photos are created on your device only.</p>
 </dialog>
 <style>
 nav{flex-wrap:wrap}button:disabled{opacity:.45;cursor:default}
