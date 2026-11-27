@@ -72,7 +72,7 @@ export function setupPhoto({ renderer, scene, camera, controls }) {
       // A separate tap keeps the user activation required by iPhone Safari.
       await navigator.share({ files: [file], title: 'BOBOTIQUE' });
     } catch (error) {
-      if (error.name !== 'AbortError') message.textContent = '分享暂不可用，请DOWNLOAD PNG 或长按照片保存。';
+      if (error.name !== 'AbortError') message.textContent = 'Sharing is unavailable. Download the PNG or touch and hold the photo to save it.';
     } finally {
       share.disabled = false;
     }
