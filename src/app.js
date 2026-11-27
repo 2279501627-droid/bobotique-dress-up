@@ -30,7 +30,7 @@ async function start() {
     engine.onContextLost = () => { photo.setReady(false); ui.status('3D paused. Restoring graphics...'); };
     await environment(catalog.environments.find(x => x.id === catalog.defaults.environment));
     await character(catalog.characters.find(x => x.id === catalog.defaults.character));
-    ui.refresh(); ui.status(`PLAYER / ${wardrobe.character.config.name.toUpperCase()}`);
+    ui.ready(); ui.status(`PLAYER / ${wardrobe.character.config.name.toUpperCase()}`);
     photo.setReady(true);
     engine.start(delta => wardrobe.update(delta), () => photo.open);
   } catch (error) {

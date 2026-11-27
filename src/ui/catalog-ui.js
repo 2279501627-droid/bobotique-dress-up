@@ -5,7 +5,7 @@ export function createUI(catalog, wardrobe, actions) {
   const store = document.querySelector('#store-link');
   const storeURL = safeURL(catalog.store?.url, catalog.baseURL);
   store.hidden = !storeURL; if (storeURL) store.href = storeURL;
-  let busy = false, selectedProduct;
+  let busy = true, selectedProduct;
   const selectors = document.querySelector('#selectors');
   async function run(task) {
     if (busy) return;
@@ -64,5 +64,5 @@ export function createUI(catalog, wardrobe, actions) {
     const url = safeURL(selectedProduct?.shopifyUrl, catalog.baseURL);
     link.hidden = !url; if (url) { link.href = url; link.textContent = `SHOP ${selectedProduct.name}`; }
   }
-  return { refresh, status: text => { status.textContent = text; } };
+  return { refresh, ready() { busy = false; refresh(); }, status: text => { status.textContent = text; } };
 }
